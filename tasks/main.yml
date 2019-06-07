@@ -28,7 +28,7 @@
     path: "{{ etherpad_log_dir }}"
     owner: "{{ etherpad_user }}"
     group: "{{ etherpad_group }}"
- 
+
 - name: setup systemd service
   template:
     src: etherpad.systemd.j2
