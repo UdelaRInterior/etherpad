@@ -1,0 +1,16 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Etherpad
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User={{ etherpad_user }}
+Group={{ etherpad_group }}
+WorkingDirectory="{{ etherpad_home }}"
+Environment=NODE_ENV=production
+ExecStart={{ etherpad_path }}/bin/run.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

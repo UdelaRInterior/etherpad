@@ -1,0 +1,44 @@
+---
+# tasks file for aleph_galaxy_etherpad
+
+- name: ensure etherpad user is present
+  user:
+    name: "{{ etherpad_user }}"
+    home: "{{ etherpad_home }}"
+    shell: "/bin/bash"
+
+- name: ensure required packages are installed
+  yum:
+    pkg: "{{ item }}"
+  loop: "{{ etherpad_required_packages }}"
+
+- name: ensure etherpad is latest
+  git:
+    repo: "{{ etherpad_repository }}"
+    dest: "{{ etherpad_path }}"
+    version: "{{ etherpad_repository_version}}"
+  become_user: "{{ etherpad_user }}"
+  become: true
+  vars:
+    ansible_ssh_pipelining: True
+
+- name: Create logs directory
+  file:
+    state: directory
+    path: "{{ etherpad_log_dir }}" 
+    owner: "{{ etherpad_user }}"
+    group: "{{ etherpad_group }}"  
+        
+- name: setup systemd service
+  template:
+    src: etherpad.systemd.j2
+    dest: /etc/systemd/system/etherpad.service
+
+- name: configure settings.json
+  template:
+    src: settings.json.j2
+    dest: "{{ etherpad_path }}/settings.json"
+    owner: "{{ etherpad_user }}"
+    group: "{{ etherpad_group }}"
+  notify:
+    - etherpad_restart
