@@ -95,10 +95,10 @@
   "dbType" : "mysql",
   "dbSettings" : {
                    "user"    : "{{ etherpad_mysql_user }}",
-                   "host"    : "{{ etherpad_mysql_host }}",
-                   "port"    : {{ etherpad_mysql_port }},
+                   "host"    : "{{ etherpad_mysql_host|default('localhost') }}",
+                   "port"    : {{ etherpad_mysql_port|default(3306) }},
                    "password": "{{ etherpad_mysql_password }}",
-                   "database": "{{ etherpad_mysql_database }}",
+                   "database": "{{ etherpad_mysql_database|default('etherpad-lite') }}",
                    "charset" : "{{ etherpad_mysql_charset|default('utf8mb4') }}"
                  },
 {% endif %}
