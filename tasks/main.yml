@@ -25,10 +25,10 @@
 - name: Create logs directory
   file:
     state: directory
-    path: "{{ etherpad_log_dir }}" 
+    path: "{{ etherpad_log_dir }}"
     owner: "{{ etherpad_user }}"
-    group: "{{ etherpad_group }}"  
-        
+    group: "{{ etherpad_group }}"
+ 
 - name: setup systemd service
   template:
     src: etherpad.systemd.j2
