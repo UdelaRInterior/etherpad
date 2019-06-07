@@ -16,7 +16,7 @@
   git:
     repo: "{{ etherpad_repository }}"
     dest: "{{ etherpad_path }}"
-    version: "{{ etherpad_repository_version}}"
+    version: "{{ etherpad_repository_version }}"
   become_user: "{{ etherpad_user }}"
   become: true
   vars:
