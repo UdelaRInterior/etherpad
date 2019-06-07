@@ -101,37 +101,16 @@ SCROLL
 USERS AUTH
 --------------
 * `etherpad_users_auth_enabled: false`
-* `etherpad_users_list:  "admin":
-    "password": "changeme1"
-    "is_admin": true
-  "user":
-    "password": "changeme1"
-    "is_admin": false`
+* `etherpad_users_list: { "admin": { "password": "changeme1", "is_admin": true }, "user": { "password": "changeme1", "is_admin": false } }`
 
 TOOLBAR
 --------------
 * `etherpad_toolbar_enabled: false`
-* `etherpad_toolbar_list:
-  "left": 
-    - ["bold", "italic", "underline", "strikethrough"]
-    - ["orderedlist", "unorderedlist", "indent", "outdent"]
-    - ["undo", "redo"]
-    - ["clearauthorship"]   
-  "right":
-    - ["importexport", "timeslider", "savedrevision"]
-    - ["settings", "embed"]
-    - ["showusers"]
-  "timeslider":
-    - ["timeslider_export", "timeslider_returnToPad"]`
+* `etherpad_toolbar_list: { "left": [["bold", "italic", "underline", "strikethrough"],["orderedlist", "unorderedlist", "indent", "outdent"],["undo", "redo"],["clearauthorship"]], "right": [["importexport", "timeslider", "savedrevision"],["settings", "embed"],["showusers"]], "timeslider": [["timeslider_export", "timeslider_returnToPad"]]`
 
 LOGGING
 --------------
-* `etherpad_logging_appenders:
-  - type: "console"
-  - type: "file"
-    filename: "/var/log/etherpad/etherpad.log"
-    maxLogSize: 1024
-    backups: 3`
+* `etherpad_logging_appenders: [ { type: "console" }, { type: "file", filename: "/var/log/etherpad/etherpad.log", maxLogSize: 1024, backups: 3 } ]`
 
 Example Playbook
 ----------------
