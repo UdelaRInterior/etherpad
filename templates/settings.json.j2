@@ -103,6 +103,24 @@
                  },
 {% endif %}
 
+
+{% if etherpad_db_type == 'pgsql' %}
+  /*
+   * An Example of PostgreSQL Configuration (commented out).
+   *
+   * 
+   */
+
+  "dbType" : "postgres",
+  "dbSettings" : {
+                   "user"    : "{{ etherpad_pgsql_user }}",
+                   "host"    : "{{ etherpad_pgsql_host|default('localhost') }}",
+                   "password": "{{ etherpad_pgsql_password }}",
+                   "database": "{{ etherpad_pgsql_database|default('etherpad-lite') }}",
+                   "charset" : "{{ etherpad_pgsql_charset|default('utf8mb4') }}"
+                 },
+{% endif %}
+
   /*
    * The default text of a pad
    */

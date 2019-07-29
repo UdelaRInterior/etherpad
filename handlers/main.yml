@@ -6,3 +6,9 @@
     name: etherpad
     enabled: yes
     state: restarted
+
+- name: apache2_restart
+  service:
+    name: apache2
+    enabled: yes
+    state: restarted

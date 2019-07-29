@@ -1,0 +1,25 @@
+---
+
+- name: Install Apache2
+  apt: 
+    pkg: apache2 
+    state: present 
+    update_cache: yes 
+    cache_valid_time: 3600
+  
+- name: Copy apache config
+  template:
+    dest: "/etc/apache2/sites-available/{{inventory_hostname}}.conf"
+    src: apache.conf.j2
+    owner: root
+    group: root
+    mode: "0644"
+  notify: 
+    - apache2_restart
+
+- name: Remove default apache2 site.
+  file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+  notify:
+    - apache2_restart

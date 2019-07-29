@@ -1,6 +1,13 @@
 ---
 # tasks file for aleph_galaxy_etherpad
 
+- name: install PostgreSQL
+  include: install_postgreSQL.yml
+  when: etherpad_db_type == "pgsql"
+
+- name: Config apache
+  include: install_apache.yml
+
 - name: ensure etherpad user is present
   user:
     name: "{{ etherpad_user }}"
@@ -42,3 +49,10 @@
     group: "{{ etherpad_group }}"
   notify:
     - etherpad_restart
+
+- name: copy logo
+  template:
+    src: index.html.j2
+    dest: "{{etherpad_home}}/etherpad-lite/src/templates/index.html"
+    owner: "{{ etherpad_user }}"
+    group: "{{ etherpad_group }}"

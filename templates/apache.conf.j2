@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+        ServerName {{inventory_hostname}}
+        ServerAdmin soporte@cci.edu.uy
+
+        Redirect / https://{{inventory_hostname}}
+</VirtualHost>
+
+<VirtualHost *:443>
+
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/{{inventory_hostname}}/cert.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/{{inventory_hostname}}/privkey.pem
+    ProxyPass / http://localhost:9001/
+    ProxyPassReverse / http://localhost:9001/
+
+</VirtualHost>
