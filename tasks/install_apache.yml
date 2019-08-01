@@ -6,11 +6,21 @@
     state: present 
     update_cache: yes 
     cache_valid_time: 3600
+
+- name: Add module
+  apache2_module:
+    state: present
+    name: "{{item}}"
+  with_items: 
+    - rewrite
+    - ssl
+    - proxy
+    - proxy_http
   
 - name: Copy apache config
   template:
-    dest: "/etc/apache2/sites-available/{{inventory_hostname}}.conf"
     src: apache.conf.j2
+    dest: "/etc/apache2/sites-available/{{inventory_hostname}}.conf"
     owner: root
     group: root
     mode: "0644"
@@ -22,4 +32,12 @@
     path: /etc/apache2/sites-enabled/000-default.conf
     state: absent
   notify:
+    - apache2_restart
+
+- name: Activate apache site.
+  file:
+    path: "/etc/apache2/sites-enabled/{{inventory_hostname}}.conf"
+    src: "/etc/apache2/sites-available/{{inventory_hostname}}.conf"
+    state: link
+  notify: 
     - apache2_restart

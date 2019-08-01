@@ -7,6 +7,7 @@ etherpad_required_packages:
 etherpad_repository: "https://github.com/ether/etherpad-lite.git"
 etherpad_repository_version: "master"
 etherpad_user: "etherpad"
+etherpad_alias: "{{inventory_hostname}}"
 etherpad_password: ""
 etherpad_group: "{{ etherpad_user }}"
 etherpad_home: "/home/etherpad"
@@ -15,7 +16,8 @@ etherpad_log_dir: "/var/log/etherpad"
 etherpad_log_filename: "{{ etherpad_log_dir }}/etherpad.log"
 etherpad_db: "pad"
 etherpad_logo: ""
-
+etherpad_packages_extras:
+  - "ep_align"
 
 # settings.json
 ############### GENERAL ###############

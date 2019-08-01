@@ -26,8 +26,8 @@
   become_user: postgres
   postgresql_user: 
     db: "{{etherpad_pgsql_database}}"
-    name: "{{etherpad_user}}"
-    password: "{{etherpad_password}}"
+    name: "{{etherpad_pgsql_user}}"
+    password: "{{etherpad_pgsql_password}}"
     priv: ALL
     state: present
   tags: postgresql

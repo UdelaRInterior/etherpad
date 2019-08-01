@@ -1,8 +1,12 @@
 <VirtualHost *:80>
         ServerName {{inventory_hostname}}
         ServerAdmin soporte@cci.edu.uy
-
+{% if etherpad_alias %}
+        ServerAlias {{etherpad_alias}}
+        Redirect / https://{{etherpad_alias}}
+{% else %}
         Redirect / https://{{inventory_hostname}}
+{% endif %}
 </VirtualHost>
 
 <VirtualHost *:443>

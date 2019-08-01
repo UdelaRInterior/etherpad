@@ -24,6 +24,7 @@
     repo: "{{ etherpad_repository }}"
     dest: "{{ etherpad_path }}"
     version: "{{ etherpad_repository_version }}"
+    force: yes
   become_user: "{{ etherpad_user }}"
   become: true
   vars:
@@ -56,3 +57,11 @@
     dest: "{{etherpad_home}}/etherpad-lite/src/templates/index.html"
     owner: "{{ etherpad_user }}"
     group: "{{ etherpad_group }}"
+
+- name: Install packages based on package.json using the npm 
+  become_user: "{{ etherpad_user }}"
+  become: true
+  npm:
+    name: "{{item}}"
+    path: "{{etherpad_path}}"
+  loop: "{{ etherpad_packages_extras }}"
