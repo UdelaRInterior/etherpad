@@ -7,7 +7,7 @@
     - postgresql-contrib
     - libpq-dev
     - python-psycopg2
-  tags: postgresql
+  tags: etherpad_postgresql
 
 - name: Create database
   become: true
@@ -19,7 +19,7 @@
     lc_ctype: es_UY.UTF-8
     template: template0
     state: present
-  tags: postgresql
+  tags: etherpad_postgresql
 
 - name: user has access to the database
   become: true
@@ -30,11 +30,11 @@
     password: "{{etherpad_pgsql_password}}"
     priv: ALL
     state: present
-  tags: postgresql
+  tags: etherpad_postgresql
 
 - name: PostgreSQL service is running
   service: 
     name: postgresql
     state: started
     enabled: yes
-  tags: postgresql
+  tags: etherpad_postgresql

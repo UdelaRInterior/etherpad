@@ -12,8 +12,14 @@
 <VirtualHost *:443>
 
     SSLEngine on
+{% if etherpad_alias %}
+    SSLCertificateFile /etc/letsencrypt/live/{{etherpad_alias}}/cert.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/{{etherpad_alias}}/privkey.pem
+{% else %}
     SSLCertificateFile /etc/letsencrypt/live/{{inventory_hostname}}/cert.pem
     SSLCertificateKeyFile /etc/letsencrypt/live/{{inventory_hostname}}/privkey.pem
+{% endif %}
+    
     ProxyPass / http://localhost:9001/
     ProxyPassReverse / http://localhost:9001/
 
