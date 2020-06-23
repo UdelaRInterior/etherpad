@@ -2,11 +2,11 @@
 # tasks file for aleph_galaxy_etherpad
 
 - name: install PostgreSQL
-  include: install_postgreSQL.yml
+  include_tasks: install_postgreSQL.yml
   when: etherpad_db_type == "pgsql"
 
 - name: Config apache
-  include: install_apache.yml
+  include_tasks: install_apache.yml
 
 - name: ensure etherpad user is present
   user:
@@ -62,6 +62,6 @@
   become_user: "{{ etherpad_user }}"
   become: true
   npm:
-    name: "{{item}}"
-    path: "{{etherpad_path}}"
+    name: "{{ item }}"
+    path: "{{ etherpad_path }}"
   loop: "{{ etherpad_packages_extras }}"

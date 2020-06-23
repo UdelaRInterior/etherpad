@@ -1,22 +1,26 @@
 ---
+## PostgeSQL installation and configuration tasks
 
 - name: Install PostgreSQL
-  apt: pkg={{item}} state=present update_cache=yes cache_valid_time=3600
-  with_items:
+  apt: 
+    name: 
     - postgresql
     - postgresql-contrib
     - libpq-dev
     - python-psycopg2
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
   tags: etherpad_postgresql
 
 - name: Create database
   become: true
   become_user: postgres
   postgresql_db: 
-    name: "{{etherpad_pgsql_database}}"
+    name: '{{ etherpad_pgsql_database }}'
     encoding: UTF-8
-    lc_collate: es_UY.UTF-8
-    lc_ctype: es_UY.UTF-8
+    lc_collate: '{{ etherpad_pgsql_language }}'
+    lc_ctype: '{{ etherpad_pgsql_language }}'
     template: template0
     state: present
   tags: etherpad_postgresql
@@ -25,9 +29,9 @@
   become: true
   become_user: postgres
   postgresql_user: 
-    db: "{{etherpad_pgsql_database}}"
-    name: "{{etherpad_pgsql_user}}"
-    password: "{{etherpad_pgsql_password}}"
+    db: "{{ etherpad_pgsql_database }}"
+    name: "{{ etherpad_pgsql_user }}"
+    password: "{{ etherpad_pgsql_password }}"
     priv: ALL
     state: present
   tags: etherpad_postgresql
@@ -38,3 +42,5 @@
     state: started
     enabled: yes
   tags: etherpad_postgresql
+
+...

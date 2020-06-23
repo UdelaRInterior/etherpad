@@ -7,7 +7,7 @@ etherpad_required_packages:
 etherpad_repository: "https://github.com/ether/etherpad-lite.git"
 etherpad_repository_version: "master"
 etherpad_user: "etherpad"
-etherpad_alias: "{{inventory_hostname}}"
+etherpad_alias: "{{ inventory_hostname }}"
 etherpad_password: ""
 etherpad_group: "{{ etherpad_user }}"
 etherpad_home: "/home/etherpad"
@@ -129,3 +129,5 @@ etherpad_logging_appenders:
     filename: "/var/log/etherpad/etherpad.log"
     maxLogSize: 1024
     backups: 3
+
+...

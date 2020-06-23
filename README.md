@@ -1,4 +1,4 @@
-Role Name
+Role Name: `udelarinterior.etherpad`
 =========
 
 Install and configure an [Etherpad](https://etherpad.org/) service.
@@ -19,7 +19,19 @@ Role Variables
 * `etherpad_log_filename: "{{ etherpad_log_dir }}/etherpad.log"`
 
 
+
+
+
 # settings.json
+
+## database
+
+* `etherpad_db_type: "dirty"`, dirty or pgsql
+* `etherpad_pgsql_database:` database name, when previous is pgsql
+* `etherpad_pgsql_user:` postgresql user
+* `etherpad_pgsql_password:` postgresql user's password
+* `etherpad_pgsql_language:` language for pgsql settings, should be like en_US.UTF-8
+
 GENERAL
 --------------
 * `etherpad_title: "Etherpad"`
@@ -29,7 +41,6 @@ GENERAL
 * `etherpad_port: 9001`
 * `etherpad_show_settings_in_admin_page: "true"`
 * `etherpad_ssl_enabled: false`
-* `etherpad_db_type: "dirty"`
 * `etherpad_default_pad_text: 'Welcome to Etherpad!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\nGet involved with Etherpad at http:\/\/etherpad.org\n'`
 * `etherpad_suppress_errors_in_pad_text: "false"`
 * `etherpad_require_session: "false"`
@@ -112,15 +123,13 @@ LOGGING
 --------------
 * `etherpad_logging_appenders: [ { type: "console" }, { type: "file", filename: "/var/log/etherpad/etherpad.log", maxLogSize: 1024, backups: 3 } ]`
 
-Example Playbook
-----------------
+# Example Playbook
 
     - hosts: servers
       roles:
          - role: broferek.etherpad
 
-License
--------
+# License
 
 GPLv3
 

@@ -1,3 +1,6 @@
+---
+## etherpad role meta file
+
 galaxy_info:
   author: Broferek
   description: Role to configure an Etherpad server
@@ -5,14 +8,20 @@ galaxy_info:
 
   license: GPLv3
 
-  min_ansible_version: 2.4
+  min_ansible_version: 2.9
 
   platforms:
-    - name: EL
-      versions:
-        - 7
+  - name: EL
+    versions:
+    - 7
+  - name: debian
+    versions:
+    - stretch
+    - buster
 
   galaxy_tags:
     - etherpad
 
 dependencies: []
+
+...

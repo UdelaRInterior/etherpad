@@ -1,5 +1,5 @@
 ---
-# handlers file for etherpad
+# handlers file for etherpad role
 
 - name: etherpad_restart
   service:
@@ -12,3 +12,5 @@
     name: apache2
     enabled: yes
     state: restarted
+
+...

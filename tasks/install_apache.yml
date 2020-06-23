@@ -1,8 +1,9 @@
 ---
+## Etherpad Apache installation and configuration tasks
 
 - name: Install Apache2
   apt: 
-    pkg: apache2 
+    name: apache2 
     state: present 
     update_cache: yes 
     cache_valid_time: 3600
@@ -10,34 +11,38 @@
 - name: Add module
   apache2_module:
     state: present
-    name: "{{item}}"
-  with_items: 
-    - rewrite
-    - ssl
-    - proxy
-    - proxy_http
+    name: '{{ module }}'
+  loop: 
+  - rewrite
+  - ssl
+  - proxy
+  - proxy_http
+  loop_control:
+    loop_var: module
   
-- name: Copy apache config
+- name: Copy Apache2 config
   template:
     src: apache.conf.j2
-    dest: "/etc/apache2/sites-available/{{inventory_hostname}}.conf"
+    dest: "/etc/apache2/sites-available/{{ inventory_hostname }}.conf"
     owner: root
     group: root
     mode: "0644"
   notify: 
-    - etherpad_apache2_restart
+  - etherpad_apache2_restart
 
-- name: Remove default apache2 site.
+- name: Remove default Apache2 site
   file:
     path: /etc/apache2/sites-enabled/000-default.conf
     state: absent
   notify:
-    - etherpad_apache2_restart
+  - etherpad_apache2_restart
 
-- name: Activate apache site.
+- name: Activate Apache2 site
   file:
-    path: "/etc/apache2/sites-enabled/{{inventory_hostname}}.conf"
-    src: "/etc/apache2/sites-available/{{inventory_hostname}}.conf"
+    path: "/etc/apache2/sites-enabled/{{ inventory_hostname }}.conf"
+    src: "/etc/apache2/sites-available/{{ inventory_hostname }}.conf"
     state: link
   notify: 
-    - etherpad_apache2_restart
+  - etherpad_apache2_restart
+
+...
